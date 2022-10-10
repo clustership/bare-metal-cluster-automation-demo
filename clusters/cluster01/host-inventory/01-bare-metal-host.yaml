@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+data:
+  password: Ym9ibGVwb25nZQ==
+  username: YWRtaW4=
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: bmc-cluster01
+---
+apiVersion: metal3.io/v1alpha1
+kind: BareMetalHost
+metadata:
+  annotations:
+    bmac.agent-install.openshift.io/hostname: cluster01
+    bmac.agent-install.openshift.io/role: master
+    inspect.metal3.io: disabled
+  labels:
+    infraenvs.agent-install.openshift.io: cluster01
+  name: cluster01
+  namespace: cluster01
+spec:
+  automatedCleaningMode: disabled
+  bmc:
+    address: redfish+http://10.10.10.10/redfish/v1/Systems/1
+    credentialsName: bmc-cluster01
+    disableCertificateVerification: true
+  bootMACAddress: "FF:FF:FF:FF:FF:FF"
+  online: true

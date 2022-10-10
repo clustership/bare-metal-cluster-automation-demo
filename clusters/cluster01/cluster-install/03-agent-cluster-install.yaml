@@ -1,0 +1,28 @@
+---
+apiVersion: extensions.hive.openshift.io/v1beta1
+kind: AgentClusterInstall
+metadata:
+  name: cluster01
+  namespace: cluster01
+  labels:
+    agentclusterinstalls.extensions.hive.openshift.io/location: hetzner
+    cluster-type: sno
+spec:
+  clusterDeploymentRef:
+    name: 'cluster01'
+  # holdInstallation: true
+  provisionRequirements:
+    workerAgents: 0
+    controlPlaneAgents: 1
+  imageSetRef:
+    name: 'img4.11.7-x86-64-appsub'
+  networking:
+    clusterNetwork:
+      - cidr: 10.128.0.0/14
+        hostPrefix: 23
+    machineNetwork:
+      - cidr: 192.168.102.0/24
+    serviceNetwork:
+      - 172.30.0.0/16
+  sshPublicKey: >-
+    ssh-rsa AAAAB3=

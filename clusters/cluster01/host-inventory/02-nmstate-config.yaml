@@ -1,0 +1,36 @@
+---
+apiVersion: agent-install.openshift.io/v1beta1
+kind: NMStateConfig
+metadata:
+  name: 'cluster01-nmstateconfig-01'
+  namespace: 'cluster01'
+  labels:
+    cluster: cluster01
+    infraenvs.agent-install.openshift.io: cluster01
+spec:
+  config:
+    interfaces:
+    - name: eth0
+      type: ethernet
+      state: up
+      ethernet:
+        auto-negotiation: true
+      ipv4:
+        address:
+        - ip: 192.168.102.123
+          prefix-length: 24
+        enabled: true
+      mtu: 1500
+    routes:
+      config:
+      - destination: 0.0.0.0/0
+        next-hop-address: 192.168.102.1
+        next-hop-interface: eth0
+    dns-resolver:
+      config:
+        server:
+        - 8.8.8.8
+        - 1.1.1.1
+  interfaces:
+  - name: eth0
+    macAddress: ff:ff:ff:ff:ff:ff

@@ -1,0 +1,32 @@
+---
+apiVersion: hive.openshift.io/v1
+kind: ClusterDeployment
+metadata:
+  annotations:
+    agentBareMetal-agentSelector/autoSelect: "false"
+    agentclusterinstalls.extensions.hive.openshift.io/location: hetzner
+  labels:
+    cluster.open-cluster-management.io/clusterset: 'default'
+    hive.openshift.io/cluster-platform: agent-baremetal
+  name: 'cluster01'
+  namespace: 'cluster01'
+spec:
+  baseDomain: clustership.com
+  clusterInstallRef:
+    group: extensions.hive.openshift.io
+    kind: AgentClusterInstall
+    name: 'cluster01'
+    version: v1beta1
+  clusterName: 'cluster01'
+  controlPlaneConfig:
+    servingCertificates: {}
+  installed: false
+  platform:
+    agentBareMetal:
+      agentSelector:
+        matchLabels:
+          agentclusterinstalls.extensions.hive.openshift.io/location: hetzner
+          cluster-type: sno
+          agent-install.openshift.io/bmh: cluster01
+  pullSecretRef:
+    name: pullsecret-cluster-cluster01

@@ -1,0 +1,22 @@
+apiVersion: agent-install.openshift.io/v1beta1
+kind: InfraEnv
+metadata:
+  name: cluster01
+  namespace: ocp-sno-bm
+  labels:
+    agentclusterinstalls.extensions.hive.openshift.io/location: hetzner
+    networkType: dhcp
+spec:
+  clusterRef:
+    name: cluster01
+    namespace: cluster01
+  agentLabels:
+    agentclusterinstalls.extensions.hive.openshift.io/location: hetzner
+    cluster-type: sno
+  cpuArchitecture: x86_64
+  nmStateConfigLabelSelector:
+    matchLabels:
+      infraenvs.agent-install.openshift.io: cluster01
+  pullSecretRef:
+    name: pullsecret-cluster-cluster01
+  sshAuthorizedKey: ssh-rsa AAAAB3=
